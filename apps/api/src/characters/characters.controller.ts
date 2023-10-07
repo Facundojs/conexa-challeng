@@ -1,5 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CharactersService } from './characters.service';
+import { Controller, Get, Param } from '@nestjs/common';
+import { IdParamDTO } from 'src/common/id-param.dto';
 
 @Controller('characters')
 export class CharactersController {
@@ -11,7 +12,7 @@ export class CharactersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.charactersService.findOne(+id);
+  findOne(@Param() { id }: IdParamDTO) {
+    return this.charactersService.findOne(id);
   }
 }
