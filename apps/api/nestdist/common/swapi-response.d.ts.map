@@ -1,0 +1,1 @@
+{"version":3,"file":"swapi-response.d.ts","sourceRoot":"","sources":["../../src/common/swapi-response.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,kBAAkB,CAAC,CAAC;IACnC,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB,IAAI,EAAE,MAAM,GAAG,IAAI,CAAC;IACpB,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,EAAE,CAAC,EAAE,CAAC;CACd"}
