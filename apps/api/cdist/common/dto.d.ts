@@ -2,7 +2,7 @@ export declare class IdParamDTO {
     id: string;
 }
 export declare class QueryDTO {
-    page: number;
+    page: string;
     search?: string;
     static wrap(url: string, dto: QueryDTO): string;
 }

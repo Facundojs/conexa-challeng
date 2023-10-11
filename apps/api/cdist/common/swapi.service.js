@@ -25,7 +25,6 @@ let SwapiService = class SwapiService {
     async search(resource, query) {
         this.validateResource(resource);
         const url = `${this.url}/${resource}`;
-        console.log({ query, url });
         const { data } = await this.httpService.axiosRef.get(dto_1.QueryDTO.wrap(url, query), {
             params: {
                 page: query.page,

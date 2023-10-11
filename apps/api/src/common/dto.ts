@@ -1,10 +1,4 @@
-import {
-  IsNumberString,
-  IsOptional,
-  IsPositive,
-  IsString,
-  Matches,
-} from 'class-validator';
+import { IsNumberString, IsOptional, IsString, Matches } from 'class-validator';
 
 const OnlyLettersRegExp = /^[a-zA-Z]+$/;
 
@@ -15,8 +9,8 @@ export class IdParamDTO {
 
 export class QueryDTO {
   @IsOptional()
-  @IsPositive()
-  page = 1;
+  @IsNumberString()
+  page = '1';
 
   @IsOptional()
   @IsString()

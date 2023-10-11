@@ -7,15 +7,15 @@ class HttpExceptionFilter {
     catch(exception, host) {
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
-        const status = this.getStatusCode(exception);
+        const statusCode = this.getStatusCode(exception);
         const request = ctx.getRequest();
         const isParseableError = exception instanceof axios_1.AxiosError || exception instanceof common_1.HttpException;
         if (isParseableError) {
-            return response.status(status).json({
+            return response.status(statusCode).json({
                 timestamp: new Date().toISOString(),
                 message: exception.message,
-                statusCode: status,
                 path: request.url,
+                statusCode,
             });
         }
         return response.status(500).json({
@@ -28,7 +28,7 @@ class HttpExceptionFilter {
     getStatusCode(exception) {
         if (typeof exception.getStatus === 'function')
             return exception.getStatus();
-        return exception.statusCode || exception.status || exception.code || 500;
+        return exception.statusCode || exception.status || 500;
     }
 }
 exports.HttpExceptionFilter = HttpExceptionFilter;

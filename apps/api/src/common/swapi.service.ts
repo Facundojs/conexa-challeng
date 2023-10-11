@@ -22,7 +22,7 @@ export class SwapiService {
   ): Promise<ISwapiListResponse<R[]>> {
     this.validateResource(resource);
     const url = `${this.url}/${resource}`;
-    console.log({ query, url });
+
     const { data } = await this.httpService.axiosRef.get(
       QueryDTO.wrap(url, query),
       {

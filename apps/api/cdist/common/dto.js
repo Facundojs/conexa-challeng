@@ -21,7 +21,7 @@ __decorate([
 ], IdParamDTO.prototype, "id", void 0);
 class QueryDTO {
     constructor() {
-        this.page = 1;
+        this.page = '1';
     }
     static wrap(url, dto) {
         let query = `?page=${dto.page}`;
@@ -33,7 +33,7 @@ class QueryDTO {
 exports.QueryDTO = QueryDTO;
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsPositive)(),
+    (0, class_validator_1.IsNumberString)(),
     __metadata("design:type", Object)
 ], QueryDTO.prototype, "page", void 0);
 __decorate([
