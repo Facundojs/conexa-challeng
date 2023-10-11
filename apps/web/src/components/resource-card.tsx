@@ -1,14 +1,15 @@
-import { ResourceType } from '../types/resources';
 import { MAX_WIDTH, ResourceTitles, resourceColors, resourceDescriptions } from '../common/config';
+import { ResourceType } from '../types/resources';
 import { useRouter } from 'next/navigation';
+import React, { ReactNode } from 'react';
 import styled from '@emotion/styled';
-import React from 'react';
 
-interface Props {
+type Props = {
   resource: ResourceType;
+  children?: ReactNode;
 }
 
-export const ResourceCard = ({ resource }: Props) => {
+export const ResourceCard = ({ resource, children }: Props) => {
   const { push } = useRouter()
 
   const HandleRedirect = () => {
@@ -21,6 +22,7 @@ export const ResourceCard = ({ resource }: Props) => {
       <Description color={resourceColors[resource] || '#333'}>
         {resourceDescriptions[resource]}
       </Description>
+      {children && children}
     </CardContainer>
   );
 };
