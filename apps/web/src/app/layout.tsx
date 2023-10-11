@@ -20,6 +20,7 @@ export default function RootLayout({
       <Head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
         <title>SWAPI Conexa challenge</title>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <Body>
         <Header>
@@ -75,7 +76,6 @@ const Header = styled.header`
   border-bottom: 2px solid #FFE81F;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 `;
-
 
 const Nav = styled.nav`
   display: flex;

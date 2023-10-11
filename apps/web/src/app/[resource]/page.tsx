@@ -1,10 +1,7 @@
 "use server"
-import { useResourceStore } from '../../store'
-import { useParams } from 'next/navigation'
+import { ResourceList } from '../../components/resource-list'
 import { ResourceType } from '../../types/resources'
 import { API_URL } from '../../common/config'
-import { ResourceList } from '../../components/resource-list'
-// import { ResourceList } from '../../components/resource-list'
 
 interface Props {
   params: { resource: ResourceType }

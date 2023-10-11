@@ -1,7 +1,10 @@
 "use client"
+import { ScrollToBottomProvider } from '../context/ScrollToBottomContext';
+import { useDebouncedCallback } from '../hooks/use-debounced-callback';
 import { useResourceSearch } from '../hooks/use-debounced-search';
 import { Resource, ResourceType } from '../types/resources';
 import { memo, useMemo, useRef, useState } from 'react';
+import { useFetchPage } from '../hooks/use-fetch-page';
 import { ResultsEmty } from './results-empty';
 import { MappedResourceCards } from './cards';
 import styled from '@emotion/styled';
@@ -9,13 +12,31 @@ import { Loading } from './loading';
 import { Error } from './error';
 
 export function ResourceList({ resource, initialData }: { resource: ResourceType, initialData: Resource[] }) {
-  const { data: foundData, error, loading, handleSearch } = useResourceSearch(resource);
-  const [pageData] = useState(() => initialData);
+  const { data: foundData, error, loading: loadingResource, handleSearch } = useResourceSearch(resource);
+  const [pageData, setPageData] = useState(() => initialData);
+  const bottonMarkerRef = useRef<HTMLDivElement>(null);
+  const { fetchNextPage } = useFetchPage(resource)
+  const [loadingNext, setLoadingNext] = useState(false);
+
+  const handleScroll = useDebouncedCallback(
+    async () => {
+      if (bottonMarkerRef.current) {
+        const rect = bottonMarkerRef.current.getBoundingClientRect();
+        if (rect.top <= window.innerHeight) {
+          setLoadingNext(true);
+          const { results } = await fetchNextPage()
+          setPageData((prev) => [...prev, ...results])
+          setLoadingNext(false);
+        }
+      }
+    },
+    300
+  );
 
   const ListMemo = useMemo(() => {
     const Component = memo(MappedResourceCards[resource]);
 
-    if (loading)
+    if (loadingResource)
       return <Loading />;
 
     if (error)
@@ -36,19 +57,32 @@ export function ResourceList({ resource, initialData }: { resource: ResourceType
       //@ts-ignore
       <Component key={i} resource={resource} />
     ));
-  }, [foundData, pageData, loading, resource, error]);
+  }, [foundData, pageData, loadingResource, resource, error]);
+
+  const LoadingNextMemo = useMemo(() => {
+    if (loadingNext)
+      return <Loading />;
+
+    return null;
+  },
+    [loadingNext]
+  );
 
   return (
-    <StyledList>
-      <SearchContainer>
-        <SearchInput
-          type="text"
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search..."
-        />
-      </SearchContainer>
-      {ListMemo}
-    </StyledList>
+    <ScrollToBottomProvider handleScroll={handleScroll}>
+      <StyledList>
+        <SearchContainer>
+          <SearchInput
+            type="text"
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search..."
+          />
+        </SearchContainer>
+        {ListMemo}
+        {LoadingNextMemo}
+        <div ref={bottonMarkerRef} />
+      </StyledList>
+    </ScrollToBottomProvider>
   );
 }
 
