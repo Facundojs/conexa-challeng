@@ -29,4 +29,4 @@ export const ResourceTitles: { [K in ResourceType]: string } = {
 
 export const MAX_WIDTH = 960;
 
-export const API_URL = process.env.API_URL;
+export const API_URL = process.env.NEXT_PUBLIC_API_URL;

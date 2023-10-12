@@ -7,11 +7,14 @@ import { memo, useMemo, useRef, useState } from 'react';
 import { useFetchPage } from '../hooks/use-fetch-page';
 import { ResultsEmty } from './results-empty';
 import { MappedResourceCards } from './cards';
+import { useParams } from 'next/navigation';
 import styled from '@emotion/styled';
 import { Loading } from './loading';
 import { Error } from './error';
 
-export function ResourceList({ resource, initialData }: { resource: ResourceType, initialData: Resource[] }) {
+export function ResourceList({ initialData }: { initialData: Resource[] }) {
+  const { resource } = useParams<{ resource: ResourceType }>()
+
   const { data: foundData, error, loading: loadingResource, handleSearch } = useResourceSearch(resource);
   const [pageData, setPageData] = useState(() => initialData);
   const bottonMarkerRef = useRef<HTMLDivElement>(null);
