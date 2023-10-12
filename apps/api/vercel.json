@@ -3,7 +3,7 @@
   "builds": [
     {
       "src": "src/main.ts",
-      "use": "@vercel/tcc"
+      "use": "@vercel/ncc"
     }
   ],
   "routes": [
