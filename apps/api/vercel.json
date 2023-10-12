@@ -1,8 +1,8 @@
 {
   "version": 2,
+  "buildCommand": "npx @vercel/ncc build src/main.ts --out dist/main.js",
   "builds": [
     {
-      "buildCommand": "npx @vercel/ncc build src/main.ts --out dist/main.js",
       "src": "src/main.ts",
       "use": "@vercel/ncc"
     }
