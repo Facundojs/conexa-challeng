@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Resource, ResourceType } from 'src/types/resources';
 import { ISwapiListResponse } from './swapi-response';
+import { Resource, ResourceType } from '../types';
 import { HttpService } from '@nestjs/axios';
 import { QueryDTO } from './dto';
 
@@ -8,12 +8,12 @@ import { QueryDTO } from './dto';
 
 @Injectable()
 export class SwapiService {
-  private readonly root = 'https://swapi.dev/api';
+  readonly root = 'https://swapi.dev/api';
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(readonly httpService: HttpService) {}
 
-  protected get url() {
-    return `${this.root}`;
+  get url() {
+    return this.root;
   }
 
   async search<R extends Resource>(
@@ -47,7 +47,7 @@ export class SwapiService {
     return data;
   }
 
-  private validateResource(resource: string) {
+  validateResource(resource: string) {
     const isResource = Object.values(ResourceType).includes(
       resource as ResourceType,
     );

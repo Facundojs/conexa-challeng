@@ -1,14 +1,14 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { SwapiService } from './common/swapi.service';
 import { IdParamDTO, QueryDTO } from './common/dto';
-import { ResourceType } from './types/resources';
 import { AppService } from './app.service';
+import { ResourceType } from './types';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly swapiService: SwapiService,
-    private readonly appService: AppService,
+    readonly swapiService: SwapiService,
+    readonly appService: AppService,
   ) {}
 
   @Get()

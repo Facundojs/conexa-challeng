@@ -108,3 +108,20 @@ export interface IVehicle {
   name: string;
   url: string;
 }
+
+export enum ResourceType {
+  Starships = 'starships',
+  Vehicles = 'vehicles',
+  Species = 'species',
+  Planets = 'planets',
+  People = 'people',
+  Films = 'films',
+}
+
+export type Resource =
+  | IStarship
+  | IVehicle
+  | IPeople
+  | IPlanet
+  | ISpecie
+  | IFilm;
